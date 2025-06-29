@@ -6,7 +6,7 @@ DEBUG = False
 
 # You'll set this in Digital Ocean environment variables
 ALLOWED_HOSTS = [
-    'marketing-directory-app.ondigitalocean.app',  # Replace with your actual app domain
+    'marketing-directory-app.ondigitalocean.app',
     'localhost',
     '127.0.0.1',
 ]
