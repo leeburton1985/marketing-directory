@@ -6,7 +6,7 @@ DEBUG = False
 
 # You'll set this in Digital Ocean environment variables
 ALLOWED_HOSTS = [
-    'your-app-name.ondigitalocean.app',  # Replace with your actual app domain
+    'marketing-directory-app.ondigitalocean.app',  # Replace with your actual app domain
     'localhost',
     '127.0.0.1',
 ]
@@ -33,4 +33,17 @@ X_FRAME_OPTIONS = 'DENY'
 # Static files configuration
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# Static files finders
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Media files configuration for production
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Add whitenoise for static file serving
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
