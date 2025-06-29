@@ -1,0 +1,23 @@
+name: marketing-directory
+services:
+- name: web
+  source_dir: /
+  github:
+    repo: leeburton1985/marketing-directory
+    branch: main
+  run_command: gunicorn --worker-tmp-dir /dev/shm marketing_directory.wsgi:application
+  environment_slug: python
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  http_port: 8000
+  build_command: pip install -r requirements.txt && python manage.py collectstatic --noinput
+  envs:
+  - key: SECRET_KEY
+    scope: RUN_AND_BUILD_TIME
+    value: "django-insecure-temporary-key-replace-in-production-settings"
+  - key: DJANGO_SETTINGS_MODULE
+    scope: RUN_AND_BUILD_TIME
+    value: marketing_directory.production_settings
+  - key: DEBUG
+    scope: RUN_AND_BUILD_TIME
+    value: "False"
