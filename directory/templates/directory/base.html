@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marketing Directory</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background-color: #f8f9fa;
+        }
+        .header { 
+            background: #333; 
+            color: white; 
+            padding: 20px; 
+            margin: -20px -20px 20px -20px; 
+            border-radius: 0 0 10px 10px;
+        }
+        .header h1 a {
+            color: white; 
+            text-decoration: none;
+        }
+        .search-box { 
+            width: 100%; 
+            max-width: 400px;
+            padding: 10px; 
+            margin: 20px 0; 
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .category { 
+            background: white; 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #007bff;
+        }
+        .category h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .category h3 a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .category h3 a:hover {
+            text-decoration: underline;
+        }
+        .link { 
+            background: white;
+            border: 1px solid #dee2e6; 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .link h4 {
+            margin-top: 0;
+            color: #333;
+        }
+        .link h4 a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link h4 a:hover {
+            text-decoration: underline;
+        }
+        .link-meta {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .link-meta a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1><a href="{% url 'directory:home' %}">🚀 Marketing Directory</a></h1>
+            <form action="{% url 'directory:search' %}" method="get">
+                <input type="text" name="q" placeholder="Search marketing resources..." class="search-box" value="{{ request.GET.q }}">
+            </form>
+        </div>
+    </div>
+    
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

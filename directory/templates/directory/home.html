@@ -1,0 +1,41 @@
+{% extends 'directory/base.html' %}
+
+{% block content %}
+<h2>📚 Categories</h2>
+{% for category in categories %}
+    <div class="category">
+        {% if category.image %}
+            <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 50px; height: 50px; object-fit: cover; float: left; margin-right: 15px; border-radius: 5px;">
+        {% endif %}
+        <h3><a href="{% url 'directory:category' category.id %}">{{ category.name }}</a></h3>
+        <p>{{ category.description }}</p>
+        <div style="clear: both;"></div>
+    </div>
+{% empty %}
+    <div class="no-results">
+        <p>No categories yet. Add some in the admin panel!</p>
+    </div>
+{% endfor %}
+
+<h2>🔥 Recent Links</h2>
+{% for link in recent_links %}
+    <div class="link">
+        {% if link.image %}
+            <img src="{{ link.image.url }}" alt="{{ link.title }}" style="width: 60px; height: 60px; object-fit: cover; float: left; margin-right: 15px; border-radius: 5px;">
+        {% endif %}
+        <h4><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></h4>
+        <p>{{ link.description }}</p>
+        <div class="link-meta">
+            Category: <a href="{% url 'directory:category' link.category.id %}">{{ link.category.name }}</a>
+            {% if link.tags %}
+                | Tags: {{ link.tags }}
+            {% endif %}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{% empty %}
+    <div class="no-results">
+        <p>No links yet. Add some in the admin panel!</p>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'directory/base.html' %}
+
+{% block content %}
+<div style="margin-bottom: 20px;">
+    <a href="{% url 'directory:home' %}" style="color: #007bff; text-decoration: none;">← Back to Home</a>
+</div>
+
+<h2>📁 {{ category.name }}</h2>
+<p style="color: #6c757d; font-size: 18px;">{{ category.description }}</p>
+
+{% for link in links %}
+    <div class="link">
+        <h4><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></h4>
+        <p>{{ link.description }}</p>
+        {% if link.tags %}
+            <div class="link-meta">
+                Tags: {{ link.tags }}
+            </div>
+        {% endif %}
+    </div>
+{% empty %}
+    <div class="no-results">
+        <p>No links in this category yet.</p>
+        <p>Add some in the admin panel!</p>
+    </div>
+{% endfor %}
+{% endblock %}

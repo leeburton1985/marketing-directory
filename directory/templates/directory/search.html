@@ -1,0 +1,33 @@
+{% extends 'directory/base.html' %}
+
+{% block content %}
+<div style="margin-bottom: 20px;">
+    <a href="{% url 'directory:home' %}" style="color: #007bff; text-decoration: none;">← Back to Home</a>
+</div>
+
+{% if query %}
+    <h2>🔍 Search Results for "{{ query }}"</h2>
+    
+    {% for link in links %}
+        <div class="link">
+            <h4><a href="{{ link.url }}" target="_blank">{{ link.title }}</a></h4>
+            <p>{{ link.description }}</p>
+            <div class="link-meta">
+                Category: <a href="{% url 'directory:category' link.category.id %}">{{ link.category.name }}</a>
+                {% if link.tags %}
+                    | Tags: {{ link.tags }}
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="no-results">
+            <p>No results found for "{{ query }}"</p>
+            <p>Try a different search term or browse our categories.</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="no-results">
+        <p>Enter a search term to find marketing resources.</p>
+    </div>
+{% endif %}
+{% endblock %}
